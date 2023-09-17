@@ -2,7 +2,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 import { PixabayAPI } from './pixabay-api';
 import galleryCard from '../templates/gallery-cards.hbs';
-import { lightbox } from './simpleLightbox';
+import { lightbox } from './simpleLightBox';
 import { smoothScroll, onToTopBtn } from './smoothScroll';
 
 const pixabayApi = new PixabayAPI(20);
