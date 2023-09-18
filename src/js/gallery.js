@@ -5,7 +5,7 @@ import galleryCard from '../templates/gallery-cards.hbs';
 import { lightbox } from './simpleLightBox';
 import { smoothScroll, onToTopBtn } from './smoothScroll';
 
-const pixabayApi = new PixabayAPI(20);
+const pixabayApi = new PixabayAPI(40);
 
 let totalPages = 0;
 
@@ -13,8 +13,8 @@ onToTopBtn();
 
 const options = {
   root: null,
-  rootMargin: '300px',
-  threshold: 1.0,
+  rootMargin: '500px',
+  threshold: 0.5,
 };
 
 const observer = new IntersectionObserver(entries => {
@@ -45,9 +45,14 @@ async function onSubmit(event) {
 
     totalPages = Math.ceil(totalHits / 40);
 
-    Notify.success(`Hooray! We found ${totalHits} images.`);
     refs.list.innerHTML = galleryCard(hits);
     lightbox.refresh();
+
+    if (totalHits === 0) {
+      return Notify.info(`We're sorry, there are ${totalHits} images matching your search query, try to enter anything else.`);
+    } else {
+      Notify.success(`Hooray! We found ${totalHits} images.`);
+    }
 
     if (totalPages === 1) {
       return;
